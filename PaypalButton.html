@@ -78,7 +78,7 @@
                 }
                 
 				var currentYear = new Date().getFullYear();
-                var orderDescription = currentYear + ' FCARC Dues Payment for ';
+                /*var orderDescription = currentYear + ' FCARC Dues Payment for ';
 				
 				if (document.getElementById("item-options").value == "Single membership") {
 					orderDescription += document.getElementById("callSign").value;
@@ -90,7 +90,7 @@
 						document.getElementById("callSign4").value + ", " + 
 						document.getElementById("callSign5").value + ", " + 
 						document.getElementById("callSign6").value;
-				}
+				}*/
                 
                 paypal.Buttons({
                     style: {
@@ -103,16 +103,18 @@
                         var selectedItemDescription = itemOptions.options[itemOptions.selectedIndex].value;
                         var selectedItemPrice = parseFloat(itemOptions.options[itemOptions.selectedIndex].getAttribute("price"));
                         var tax = (0 === 0) ? 0 : (selectedItemPrice * (parseFloat(0)/100));
-                        /*if(quantitySelect.options.length > 0) {
+                        if(quantitySelect.options.length > 0) {
                           quantity = parseInt(quantitySelect.options[quantitySelect.selectedIndex].value);
-                        } else {*/
+                        } else {
                           quantity = 1;
-                        //}
-                       /* tax *= quantity;
-                        tax = Math.round(tax * 100) / 100;*/
-                        var priceTotal = quantity * selectedItemPrice;// tax and shipping removed
+                        }
+
+                        tax *= quantity;
+                        tax = Math.round(tax * 100) / 100;
+                        var priceTotal = quantity * selectedItemPrice + parseFloat(shipping) + tax;
                         priceTotal = Math.round(priceTotal * 100) / 100;
                         var itemTotalValue = Math.round((selectedItemPrice * quantity) * 100) / 100;
+
                         return actions.order.create({
                             purchase_units: [{
                                 description: orderDescription,
