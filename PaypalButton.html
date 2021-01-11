@@ -23,7 +23,7 @@
 			function itemOptions_onchange() {
 				var selectBox = document.getElementById("item-options").value;
 				console.debug(selectBox);
-				if(selectBox == '2021 Dues - Single'){
+				if(selectBox == 'Single membership'){
 					document.getElementById("fam").style.display = "none";
 				}
 				else{
@@ -39,8 +39,8 @@
                   <h1>FCARC Dues Payment</h1>  
                     <form id="myform" method="post">
                         <select id="item-options" onchange="itemOptions_onchange()">
-                            <option  value="2021 Dues - Single" price="10.00" selected="selected">2021 Dues - Single - 10.00 USD</option>
-                            <option value="2021 Dues - Family" price="15.00">2021 Dues - Family - 15.00 USD</option>
+                            <option  value="Single membership" price="10.00" selected="selected">2021 Dues - Single - 10.00 USD</option>
+                            <option value="Family membership" price="15.00">2021 Dues - Family - 15.00 USD</option>
                         </select>
                     </form> 
                     
@@ -66,7 +66,6 @@
             
             document.getElementById('item-options').addEventListener('change', onchange);
             function initPayPalButton() {
-                var currentYear = "2021";
                 var shipping = 0;
                 var itemOptions = document.querySelector("#smart-button-container #item-options");
                 var quantity = parseInt();
@@ -75,7 +74,12 @@
                   quantitySelect.style.visibility = "visible";
                 }
                 
-                var orderDescription = '2021 FCARC Dues Payment for ' + callSign;
+				var currentYear = new Date().getFullYear();
+                var orderDescription = currentYear + ' FCARC Dues Payment for ';
+				
+				if (document.getElementById("item-options").value == "") {
+					
+				}
                 
                 paypal.Buttons({
                     style: {
