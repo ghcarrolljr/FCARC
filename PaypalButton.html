@@ -22,12 +22,11 @@
 		<script type="text/javascript"> 
 			function itemOptions_onchange() {
 				var selectBox = document.getElementById("item-options").value;
+				console.debug(selectBox);
 				if(selectBox == '2021 Dues - Single'){
-					window.alert("1");
 					document.getElementById("fam").style.visibility = "none";
 				}
 				else{
-					window.alert("2");
 					document.getElementById("fam").style.visibility = "block";
 				}
 			}
