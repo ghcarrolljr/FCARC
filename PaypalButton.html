@@ -25,7 +25,7 @@
                 <div style="margin-bottom: 1.25rem;">
                   <p>2021 FCARC Dues Payment</p>  
                     <form id="myform" method="post">
-                        <select id="item-options" onchange="change()">
+                        <select id="item-options" onchange="itemOptions_onchange()">
                             <option  value="2021 Dues - Single" price="10.00" selected="selected">2021 Dues - Single - 10.00 USD</option>
                             <option value="2021 Dues - Family" price="15.00">2021 Dues - Family - 15.00 USD</option>
                         </select>
@@ -45,7 +45,8 @@
                     <input type="text" id="famCalls4" name="famCalls4">
                     <input type="text" id="famCalls5" name="famCalls5"><br><br>
                 </div>
-                <script> function change() {
+                <script> 
+					function itemOptions_onchange() {
                         var selectBox = document.getElementById("item-options").value;
                         if(selectBox == '2021 Dues - Single'){
                             window.alert("1");
