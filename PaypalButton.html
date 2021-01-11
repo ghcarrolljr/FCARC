@@ -18,6 +18,20 @@
         <meta name="author" content="George Carroll" />
         <meta name="keywords" content="W5AUU.org" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	   
+		<script type="text/javascript"> 
+			function itemOptions_onchange() {
+				var selectBox = document.getElementById("item-options").value;
+				if(selectBox == '2021 Dues - Single'){
+					window.alert("1");
+					document.getElementById("fam").style.visibility = "none";
+				}
+				else{
+					window.alert("2");
+					document.getElementById("fam").style.visibility = "block";
+				}
+			};
+		</script>
 	</head>
 	<body>
         <div id="smart-button-container">
@@ -45,19 +59,6 @@
                     <input type="text" id="famCalls4" name="famCalls4">
                     <input type="text" id="famCalls5" name="famCalls5"><br><br>
                 </div>
-                <script> 
-					function itemOptions_onchange() {
-                        var selectBox = document.getElementById("item-options").value;
-                        if(selectBox == '2021 Dues - Single'){
-                            window.alert("1");
-                            document.getElementById("fam").style.visibility = "none";
-                        }
-                        else{
-                            window.alert("2");
-                            document.getElementById("fam").style.visibility = "block";
-                        }
-                    };
-                </script>
                 <div id="paypal-button-container"></div>
             </div>
         </div>
