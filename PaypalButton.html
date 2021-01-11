@@ -75,9 +75,9 @@
                   quantitySelect.style.visibility = "visible";
                 }
                 
-                var orderDescription = '2021 FCARC Dues Payment for' . callSign;
+                var orderDescription = '2021 FCARC Dues Payment for' + callSign;
                 if(orderDescription === '') {
-                  orderDescription = "currentYear . ' Dues'";
+                  orderDescription = currentYear + ' Dues'";
                 }
                 
                 paypal.Buttons({
