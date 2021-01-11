@@ -14,51 +14,53 @@
       Supporting files: 
         -->
         <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
-        <title>Site by George</title>
+        <title>FCARC Dues Payment</title>
         <meta name="author" content="George Carroll" />
         <meta name="keywords" content="W5AUU.org" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	   
+		<script type="text/javascript"> 
+			function itemOptions_onchange() {
+				var selectBox = document.getElementById("item-options").value;
+				console.debug(selectBox);
+				if(selectBox == 'Single membership'){
+					document.getElementById("fam").style.display = "none";
+				}
+				else{
+					document.getElementById("fam").style.display = "inline-block";
+				}
+			}
+		</script>
+		<style type="text/css">
+			.caps { text-transform: uppercase; }
+		</style>
 	</head>
 	<body>
         <div id="smart-button-container">
             <div style="text-align: center;">
                 <div style="margin-bottom: 1.25rem;">
-                  <p>2021 FCARC Dues Payment</p>
-                    <!-- -->    
-                    
+                  <h1>FCARC Dues Payment</h1>  
                     <form id="myform" method="post">
-                        <select id="item-options" onchange="change()"selected="selected">
-                            <option  value="2021 Dues - Single" price="10.00" selected="selected">2021 Dues - Single - 10.00 USD</option>
-                            <option value="2021 Dues - Family" price="15.00">2021 Dues - Family - 15.00 USD</option>
+                        <select id="item-options" onchange="itemOptions_onchange()">
+                            <option  value="Single membership" price="10.00" selected="selected">2021 Dues - Single - 10.00 USD</option>
+                            <option value="Family membership" price="15.00">2021 Dues - Family - 15.00 USD</option>
                         </select>
                     </form> 
                     
                 </div>
                 <div id="mycall-container">
-                    <label>Enter your Call: </label>
-                    <input type="text" id="callSign" name="callSign"><br><br>
+                    <label>Enter your call: </label><br>
+                    <input type="text" id="callSign" name="callSign" class="caps"><br><br>
                 </div>
                 
-                <div id="fam">
-                    <label>Enter Family Calls</label>
-                    <input type="text" id="famCalls1" name="famCalls1">
-                    <input type="text" id="famCalls2" name="famCalls2">
-                    <input type="text" id="famCalls3" name="famCalls3">
-                    <input type="text" id="famCalls4" name="famCalls4">
-                    <input type="text" id="famCalls5" name="famCalls5"><br><br>
+                <div id="fam" style="display: none;">
+                    <label>Enter family calls:</label><br>
+                    <input type="text" id="callSign2" name="callSign2" class="caps"><br>
+                    <input type="text" id="callSign3" name="callSign3" class="caps"><br>
+                    <input type="text" id="callSign4" name="callSign4" class="caps"><br>
+                    <input type="text" id="callSign5" name="callSign5" class="caps"><br>
+                    <input type="text" id="callSign6" name="callSign6" class="caps"><br><br>
                 </div>
-                <script> function change() {
-                        var selectBox = document.getElementById("item-options").value;
-                        if(selectBox == '2021 Dues - Single'){
-                            window.alert("1");
-                            document.getElementById("fam").style.visibility = "none";
-                        }
-                        else{
-                            window.alert("2");
-                            document.getElementById("fam").style.visibility = "block";
-                        }
-                    };
-                </script>
                 <div id="paypal-button-container"></div>
             </div>
         </div>
@@ -67,7 +69,6 @@
             
             document.getElementById('item-options').addEventListener('change', onchange);
             function initPayPalButton() {
-                var currentYear = "2021";
                 var shipping = 0;
                 var itemOptions = document.querySelector("#smart-button-container #item-options");
                 var quantity = parseInt();
@@ -76,10 +77,20 @@
                   quantitySelect.style.visibility = "visible";
                 }
                 
-                var orderDescription = '2021 FCARC Dues Payment for' . callSign;
-                if(orderDescription === '') {
-                  orderDescription = "currentYear . ' Dues'";
-                }
+				var currentYear = new Date().getFullYear();
+                var orderDescription = currentYear + ' FCARC Dues Payment for ';
+				
+				if (document.getElementById("item-options").value == "Single membership") {
+					orderDescription += document.getElementById("callSign").value;
+				}
+				else {
+					orderDescription += document.getElementById("callSign").value + ", " +
+						document.getElementById("callSign2").value + ", " + 
+						document.getElementById("callSign3").value + ", " + 
+						document.getElementById("callSign4").value + ", " + 
+						document.getElementById("callSign5").value + ", " + 
+						document.getElementById("callSign6").value;
+				}
                 
                 paypal.Buttons({
                     style: {
