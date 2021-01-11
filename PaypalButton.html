@@ -52,11 +52,11 @@
                 
                 <div id="fam" style="display: none;">
                     <label>Enter family calls:</label><br>
-                    <input type="text" id="famCalls1" name="famCalls1"><br>
-                    <input type="text" id="famCalls2" name="famCalls2"><br>
-                    <input type="text" id="famCalls3" name="famCalls3"><br>
-                    <input type="text" id="famCalls4" name="famCalls4"><br>
-                    <input type="text" id="famCalls5" name="famCalls5"><br><br>
+                    <input type="text" id="callSign2" name="callSign2"><br>
+                    <input type="text" id="callSign3" name="callSign3"><br>
+                    <input type="text" id="callSign4" name="callSign4"><br>
+                    <input type="text" id="callSign5" name="callSign5"><br>
+                    <input type="text" id="callSign6" name="callSign6"><br><br>
                 </div>
                 <div id="paypal-button-container"></div>
             </div>
@@ -77,8 +77,16 @@
 				var currentYear = new Date().getFullYear();
                 var orderDescription = currentYear + ' FCARC Dues Payment for ';
 				
-				if (document.getElementById("item-options").value == "") {
-					
+				if (document.getElementById("item-options").value == "Single membership") {
+					orderDescription += document.getElementById("callSign").value;
+				}
+				else {
+					orderDescription += document.getElementById("callSign").value + ", " +
+						document.getElementById("callSign2").value + ", " + 
+						document.getElementById("callSign3").value + ", " + 
+						document.getElementById("callSign4").value + ", " + 
+						document.getElementById("callSign5").value + ", " + 
+						document.getElementById("callSign6").value;
 				}
                 
                 paypal.Buttons({
