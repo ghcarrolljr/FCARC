@@ -19,7 +19,44 @@
         <meta name="keywords" content="W5AUU.org" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	   
-		
+		<script type="text/javascript"> 
+			
+			function itemOptions_onchange() {
+				var ddlValue = document.getElementById("item-options").value;
+				if (ddlValue == 'single'){
+					document.getElementById("fam").style.display = "none";
+				}
+				else {
+					document.getElementById("fam").style.display = "inline-block";
+				}
+			}
+			
+			function buildOrderDescription() {
+				var thisYear = new Date().getFullYear();
+				var orderDescription = thisYear + ' FCARC dues payment for ';
+
+				if (document.getElementById("item-options").value == 'single') {
+					orderDescription += document.getElementById("callSign").value;
+				}
+				else {
+					orderDescription += document.getElementById("callSign").value;
+					
+					var callsigns = ["callSign2", "callSign3", "callSign4", "callSign5", "callSign6"];
+					for (var x=0; x < callsigns.length; x++){
+						console.log(document.getElementById(callsigns[x]).value);
+						if (document.getElementById(callsigns[x]).value.trim() != "") {
+							orderDescription += ", " + document.getElementById(callsigns[x]).value.trim();
+						}
+					}
+				}
+				
+				return orderDescription;
+			}
+			
+		</script>
+		<style type="text/css">
+			.caps { text-transform: uppercase; }
+		</style>
 	</head>
 	<body>
         <div id="smart-button-container">
@@ -28,8 +65,8 @@
                   <h1>FCARC Dues Payment</h1>  
                     <form id="myform" method="post">
                         <select id="item-options" onchange="itemOptions_onchange()">
-                            <option  value="Single membership" price="10.00">10.00</option>
-                            <option value="Family membership" price="15.00">15.00</option>
+                            <option  value="single" price="10.00">Single membership - $10.00</option>
+                            <option value="family" price="15.00">Family membership - $15.00</option>
                         </select>
                     </form> 
                     
@@ -50,43 +87,14 @@
                 <div id="paypal-button-container"></div>
             </div>
         </div>
-        <script type="text/javascript"> 
-			function itemOptions_onchange() {
-				var selectBox = document.getElementById("item-options").value;
-				console.debug(selectBox);
-				if(selectBox == 'Single membership'){
-					document.getElementById("fam").style.display = "none";
-				}
-				else{
-					document.getElementById("fam").style.display = "inline-block";
-				}
-			}
-		</script>
-        <script>
-            
-        </script>
-		<style type="text/css">
-			.caps { text-transform: uppercase; }
-		</style>
-  <script src="https://www.paypal.com/sdk/js?client-id=AZShlx6VHCIKaqxPeYqBY8IVheTEpkUocVb15_7Y2vdDSelk0H-ApUZS4S7x4pzlto_QMJy3HTJMDrlX&currency=USD" data-sdk-integration-source="button-factory"></script>
-  <script>
+	  <script src="https://www.paypal.com/sdk/js?client-id=AZShlx6VHCIKaqxPeYqBY8IVheTEpkUocVb15_7Y2vdDSelk0H-ApUZS4S7x4pzlto_QMJy3HTJMDrlX&currency=USD" data-sdk-integration-source="button-factory"></script>
+		<script>
+			
     function initPayPalButton() {
         var shipping = 0;
         var itemOptions = document.querySelector("#smart-button-container #item-options");
         var quantity = parseInt();
-        var orderDescription = '2021 FCARC Dues Payment';
-        var selectBox = document.getElementById("item-options").value;
-        if (selectBox == 'Single membership') {
-					orderDescription += document.getElementById("callSign").value;
-				}
-				else {
-					orderDescription += document.getElementById("callSign").value + ", " +
-						document.getElementById("callSign2").value + ", " + 
-						document.getElementById("callSign3").value + ", " + 
-						document.getElementById("callSign4").value + ", " + 
-						document.getElementById("callSign5").value + ", " + 
-						document.getElementById("callSign6").value;
-				}
+		
         paypal.Buttons({
         style: {
           shape: 'rect',
@@ -100,16 +108,16 @@
             var selectedItemDescription = itemOptions.options[itemOptions.selectedIndex].value;
             var selectedItemPrice = parseFloat(itemOptions.options[itemOptions.selectedIndex].getAttribute("price"));
             var tax = (0 === 0) ? 0 : (selectedItemPrice * (parseFloat(0)/100));
-            
             quantity = 1;
-            
-
             tax *= quantity;
             tax = Math.round(tax * 100) / 100;
             var priceTotal = quantity * selectedItemPrice;
             priceTotal = Math.round(priceTotal * 100) / 100;
             var itemTotalValue = Math.round((selectedItemPrice * quantity) * 100) / 100;
+			
+			var orderDescription = buildOrderDescription();
             console.log(orderDescription);
+			
             return actions.order.create({
                 purchase_units: [{"description": orderDescription, "amount":{"currency_code":"USD","value":priceTotal}}]
                 });
@@ -122,7 +130,7 @@
         },
 
         onError: function(err) {
-          console.log(err);
+          console.error(err);
         }
       }).render('#paypal-button-container');
     }
