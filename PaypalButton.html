@@ -55,20 +55,17 @@
 
                 return orderDescription;
             }
-
+            
+            function ifcompleteForm() {
+                var test = false;
+                if (document.getElementById("callSign").value != "") {test = true}
+                return test;
+            }
         </script>
         <style type="text/css">
             .caps { text-transform: uppercase; }
         </style>
         
-        <script>
-            function ifcompleteForm() {
-                var test = "false";
-                callSign = document.getElementById("callSign").value;
-                if (callSign != "") {test = "true"}
-            return test;
-            }
-        </script>
         <div id="smart-button-container">
             <div style="text-align: center;">
                 <div style="margin-bottom: 1.25rem;">
@@ -104,14 +101,7 @@
             var shipping = 0;
             var itemOptions = document.querySelector("#smart-button-container #item-options");
             var quantity = parseInt();
-            alert(ifcompleteForm());
-            var tested = ifcompleteForm();
-            // Test for call entry
-            if (tested = "false") {
-                document.getElementById('callSignLabel').innerHTML 
-                = 'Enter your call: REQUIRED';
-                return;
-            }
+            
             paypal.Buttons({
             style: {
               shape: 'rect',
@@ -122,6 +112,13 @@
             },
 
             createOrder: function(data, actions) {
+                
+                // Test for call entry
+                if (!ifcompleteForm()) {
+                    alert('Enter your call: REQUIRED');
+                    return 0;
+                }
+            
                 var selectedItemDescription = itemOptions.options[itemOptions.selectedIndex].value;
                 var selectedItemPrice = parseFloat(itemOptions.options[itemOptions.selectedIndex].getAttribute("price"));
                 var tax = (0 === 0) ? 0 : (selectedItemPrice * (parseFloat(0)/100));
