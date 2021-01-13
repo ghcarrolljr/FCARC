@@ -23,50 +23,51 @@
 	</head>
 	<body>
         <script type="text/javascript"> 
-			
-			function itemOptions_onchange() {
-				var ddlValue = document.getElementById("item-options").value;
-				if (ddlValue == 'single'){
-					document.getElementById("fam").style.display = "none";
-				}
-				else {
-					document.getElementById("fam").style.display = "inline-block";
-				}
-			}
-			
-			function buildOrderDescription() {
-				var thisYear = new Date().getFullYear();
-				var orderDescription = thisYear + ' FCARC dues payment for ';
 
-				if (document.getElementById("item-options").value == 'single') {
-					orderDescription += document.getElementById("callSign").value;
-				}
-				else {
-					orderDescription += document.getElementById("callSign").value;
-					
-					var callsigns = ["callSign2", "callSign3", "callSign4", "callSign5", "callSign6"];
-					for (var x=0; x < callsigns.length; x++){
-						console.log(document.getElementById(callsigns[x]).value);
-						if (document.getElementById(callsigns[x]).value.trim() != "") {
-							orderDescription += ", " + document.getElementById(callsigns[x]).value.trim();
-						}
-					}
-				}
-				
-				return orderDescription;
-			}
-			
-		</script>
-		<style type="text/css">
-			.caps { text-transform: uppercase; }
-		</style>
+            function itemOptions_onchange() {
+                var ddlValue = document.getElementById("item-options").value;
+                if (ddlValue == 'single'){
+                    document.getElementById("fam").style.display = "none";
+                }
+                else {
+                    document.getElementById("fam").style.display = "inline-block";
+                }
+            }
+
+            function buildOrderDescription() {
+                var thisYear = new Date().getFullYear();
+                var orderDescription = thisYear + ' FCARC dues payment for ';
+
+                if (document.getElementById("item-options").value == 'single') {
+                    orderDescription += document.getElementById("callSign").value;
+                }
+                else {
+                    orderDescription += document.getElementById("callSign").value;
+
+                    var callsigns = ["callSign2", "callSign3", "callSign4", "callSign5", "callSign6"];
+                    for (var x=0; x < callsigns.length; x++){
+                        console.log(document.getElementById(callsigns[x]).value);
+                        if (document.getElementById(callsigns[x]).value.trim() != "") {
+                            orderDescription += ", " + document.getElementById(callsigns[x]).value.trim();
+                        }
+                    }
+                }
+
+                return orderDescription;
+            }
+
+        </script>
+        <style type="text/css">
+            .caps { text-transform: uppercase; }
+        </style>
+        
         <script>
-        function (ifcompleteForm()) {
-            var test = "true";
-            callSign = document.getElementById("callSign").value;
-            if (callSign === "") {test = "false"}
-        return test;
-        }
+            function ifcompleteForm() {
+                var test = "false";
+                callSign = document.getElementById("callSign").value;
+                if (callSign != "") {test = "true"}
+            return test;
+            }
         </script>
         <div id="smart-button-container">
             <div style="text-align: center;">
@@ -78,13 +79,13 @@
                             <option value="family" price="15.00">Family membership - $15.00</option>
                         </select>
                     </form> 
-                    
+
                 </div>
                 <div id="mycall-container">
                     <label id="callSignLabel">Enter your call: </label><br>
                     <input type="text" id="callSign" name="callSign" class="caps"><br><br>
                 </div>
-                
+
                 <div id="fam" style="display: none;">
                     <label>Enter family calls:</label><br>
                     <input type="text" id="callSign2" name="callSign2" class="caps"><br>
@@ -96,14 +97,17 @@
                 <div id="paypal-button-container"></div>
             </div>
         </div>
-	  <script src="https://www.paypal.com/sdk/js?client-id=AZShlx6VHCIKaqxPeYqBY8IVheTEpkUocVb15_7Y2vdDSelk0H-ApUZS4S7x4pzlto_QMJy3HTJMDrlX&currency=USD" data-sdk-integration-source="button-factory"></script>
-		<script>
+        <script src="https://www.paypal.com/sdk/js?client-id=AZShlx6VHCIKaqxPeYqBY8IVheTEpkUocVb15_7Y2vdDSelk0H-ApUZS4S7x4pzlto_QMJy3HTJMDrlX&currency=USD" data-sdk-integration-source="button-factory"></script>
+        <script>
 
         function initPayPalButton() {
             var shipping = 0;
             var itemOptions = document.querySelector("#smart-button-container #item-options");
             var quantity = parseInt();
-            if (ifcompleteForm () = "false") {
+            alert(ifcompleteForm());
+            var tested = ifcompleteForm();
+            // Test for call entry
+            if (tested = "false") {
                 document.getElementById('callSignLabel').innerHTML 
                 = 'Enter your call: REQUIRED';
                 return;
@@ -148,6 +152,6 @@
           }).render('#paypal-button-container');
         }
         initPayPalButton();
-  </script>
+        </script>
     </body>
 </html>
