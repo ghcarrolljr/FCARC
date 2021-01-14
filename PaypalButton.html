@@ -115,7 +115,7 @@
                 
                 // Test for call entry
                 if (!ifcompleteForm()) {
-                    alert('Enter your call: REQUIRED');
+                    document.getElementById('callSignLabel').innerHTML = 'Enter your call:<font color="red" style="font-size:30px"> REQUIRED</font>';
                     return 0;
                 }
             
